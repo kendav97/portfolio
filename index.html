@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-language" content="es_es">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta name="google" content="notranslate">
+    <meta name="mobile-web-app-capable" content="yes"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEportfolio</title>
+</head>
+<body>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        #mainLoader {
+            background-color: black;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            z-index: 100;
+        }
+        #mainLoader > div {
+            width: calc(100% - 80px);
+            height: calc(100% - 40px);
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            padding: 20px 40px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -ms-user-select:none;
+            user-select: none;
+        }
+        #mainLoader p.desc {
+            color: black;
+            position: absolute;
+            z-index: 1;
+        }
+        #mainLoader p.pres {
+            position: relative;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            line-height: 1em;
+        }
+        #mainLoader div.statusBarLoader {
+            width: 100%;
+            position: absolute;
+            top: auto;
+            left: 0;
+            z-index: 1;
+            bottom: 0;
+            right: 0;
+            height: 16px;
+            background-color: black;
+            overflow: hidden;
+            padding: 0;
+        }
+        #mainLoader div.statusBarLoader > div {
+            background-color: rgba(255, 255, 255,0.5);
+            height: 16px;
+            width: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.3s linear;
+        }
+        #mainLoader div.statusBarLoader > div > div {
+            background-color: rgba(255, 255, 255,0.5);
+            height: 16px;
+            width: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.3s linear;
+        }
+    </style>
+    <div id="mainLoader">
+        <div>
+            <p class="desc">Portfolio de Kenneth Gonzalez</p>
+            <p class="pres"></p>
+        </div>
+        <div class="statusBarLoader">
+            <div class="tracker">
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let loader = document.querySelector("#mainLoader .pres");
+        setTimeout(()=>{loader.innerHTML="L&#9602;"},200);
+        setTimeout(()=>{loader.innerHTML="LO&#9602;"},220);
+        setTimeout(()=>{loader.innerHTML="LOA&#9602;"},320);
+        setTimeout(()=>{loader.innerHTML="LOAD&#9602;"},340);
+        setTimeout(()=>{loader.innerHTML="LOADI&#9602;"},500);
+        setTimeout(()=>{loader.innerHTML="LOADIN&#9602;"},520);
+        setTimeout(()=>{loader.innerHTML="LOADING&#9602;"},540);
+        setTimeout(()=>{loader.innerHTML="LOADING.&#9602;"},630);
+        setTimeout(()=>{loader.innerHTML="LOADING..&#9602;"},630);
+        setTimeout(()=>{loader.innerHTML="LOADING...&#9602;"},690);
+        setTimeout(()=>{loader.innerHTML="LOADING... [|]&#9602;"},800);
+        var textLoader = ["LOADING... [|]",
+                          "LOADING... [/]",
+                          "LOADING... [-]",
+                          "LOADING... [\\]"];
+        var textLoaderPointer = 1;
+        var textLoaderPointer2 = true;
+        var intervalo;
+        setTimeout(()=>{
+            intervalo = setInterval(()=>{
+                if(textLoaderPointer == 4) {
+                    textLoaderPointer = 0;
+                    textLoaderPointer2 = (textLoaderPointer2) ? false : true;
+                };
+                if(textLoaderPointer == 2) textLoaderPointer2 = (textLoaderPointer2) ? false : true;
+                if(textLoaderPointer2){
+                    loader.innerHTML = textLoader[textLoaderPointer++]+"&#9602;";
+                } else {
+                    loader.innerHTML = textLoader[textLoaderPointer++];
+                }
+                
+            },250);
+        },820);
+        var hueRotate = 0;
+        setInterval(function(){
+            $("#VideoBG").css("filter","hue-rotate("+hueRotate+"deg)");
+            hueRotate+=2;
+            if(hueRotate >= 360) hueRotate = 0;
+        },200)
+        function salirLoader() {
+            $(".toShow").each(function(){
+                $(this).css("display",$(this).attr("orig-disp"));
+            });
+            if(window.innerHeight > window.innerWidth) {
+                $("#VideoBG").addClass("rotate");
+            }
+            $(".filter").addClass("active");
+            $("div#mainLoader").fadeOut(700,()=>{
+                clearInterval(intervalo);
+                $(".container").addClass("active");
+            });
+        }
+    </script>
+    <header id="HeaderBG" style="display: none;" class="toShow" orig-disp="block">
+        <video id="VideoBG" src="" alt-src="media/fondo720.webm" plus-src="media/fondo1080.webm"  preload="auto" muted autoplay="autoplay" loop="loop"></video>
+        <div class="filter"></div>
+        <div class="filter filter2"></div>
+        <div class="container">
+            <div class="row d-flex align-items-sm-center justify-content-center">
+                <div class="col-8 col-sm-4 col-lg-3 d-flex align-items-end">
+                    <img src="" alt-src="media/me.webp" alt="Profile picture" class="profile img-fluid">
+                </div>
+                <div class="col-12 col-sm-8 col-lg-9">
+                    <h1 class="inline text-center text-sm-left" style="margin-top: 20px;">Kenneth <span class="d-none d-lg-inline">David </span>Gonzalez<span class="d-none d-lg-inline"> Marin</span></h1>
+                    <h4 class="inline text-center text-sm-left" ><span class="d-none d-lg-inline">Junior </span>Full Stack <span class="d-none d-lg-inline">WEB </span>Developer</h4>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light toShow" orig-disp="flex" style="display: none;">
+        <a class="navbar-brand" href="#">
+            <img alt-src="media/me.webp" alt="Profile picture" class="profile img-fluid redondeado" style="vertical-align: middle;">
+            <div style="display: inline-block; vertical-align: middle;">
+                <h4 style="font-weight:normal; margin: 0; font-size: 0.9em;">Kenneth Gonzalez</h4>
+                <h6 style="font-weight:lighter; margin: 0; font-size: 0.6em;">Full Stack Developer</h6>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                Dropdown link
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="content toShow" style="display: none;" orig-disp="block">
+        <p>The navbar will stick to the top when you reach its scroll position.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>The navbar will stick to the top when you reach its scroll position.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>The navbar will stick to the top when you reach its scroll position.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>The navbar will stick to the top when you reach its scroll position.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+    </div>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
